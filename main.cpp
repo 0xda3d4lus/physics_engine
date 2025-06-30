@@ -1,6 +1,6 @@
 #include <iostream>
 #include <vector>
-#include "mod/operators.h"
+#include "mod/laws.h"
 using namespace std;
 
 int main(){

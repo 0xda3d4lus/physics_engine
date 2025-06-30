@@ -1,7 +1,7 @@
 CXX = g++
 CXXFLAGS = -Wall -Wextra -std=c++17
 
-SRC = main.cpp mod/operators.cpp mod/object.cpp
+SRC = main.cpp mod/laws.cpp mod/object.cpp
 OBJ = $(SRC:.cpp=.o)
 
 TARGET = out

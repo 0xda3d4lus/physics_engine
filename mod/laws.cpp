@@ -39,7 +39,7 @@ vector<double> vec_unital (vector<double> v){
     return res;
 }
 bool check_impact (Object o1, Object o2){
-    if (vec_norm(vec_sub(o1.position, o2.position)) <= o1.raduce + o2.raduce)
+    if (vec_norm(vec_sub(o1.get_position(), o2.get_position())) <= o1.get_raduce() + o2.get_raduce())
         return true;
     return false;
 }
