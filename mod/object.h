@@ -7,7 +7,7 @@ class Object{
         double raduce;
         double electrical_charge;
         double magnetical_charge;
-        vector<double> position[3];
-        vector<double> velocity[3];
-        vector<double> force_net[3];
+        vector<double> position;
+        vector<double> velocity;
+        vector<double> force_net;
 };

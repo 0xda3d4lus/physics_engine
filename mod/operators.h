@@ -2,10 +2,10 @@
 #include "object.h"
 using namespace std;
 
-vector<double> sum (vector<double> v1, vector<double> v2);
-vector<double> sub (vector<double> v1, vector<double> v2);
-vector<double> cross (vector<double> v1, vector<double> v2);
-double dot (vector<double> v1, vector<double> v2);
-double norm (vector<double> v);
-vector<double> unital (vector<double> v);
+vector<double> vec_sum (vector<double> v1, vector<double> v2);
+vector<double> vec_sub (vector<double> v1, vector<double> v2);
+vector<double> vec_cross (vector<double> v1, vector<double> v2);
+double vec_dot (vector<double> v1, vector<double> v2);
+double vec_norm (vector<double> v);
+vector<double> vec_unital (vector<double> v);
 bool check_impact(Object o1, Object o2);
