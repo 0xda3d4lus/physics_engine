@@ -1,5 +1,7 @@
 #include <vector>
 using namespace std;
+#ifndef OBJECT_H
+#define OBJECT_H
 
 class Object{
     private:
@@ -10,8 +12,9 @@ class Object{
         vector<double> position;
         vector<double> velocity;
         vector<double> force_net;
+        vector<double> acceleration;
     public:
-        Object(double mass, double raduce, double electrical_charge, double magnetical_charge);
+        Object(double mass, double raduce, double electrical_charge, double magnetical_charge, vector<double> position, vector<double> velocity);
         double get_mass(void);
         void set_mass(double);
         double get_raduce(void);
@@ -26,4 +29,7 @@ class Object{
         void set_velocity(vector<double>);
         vector<double> get_force_net(void);
         void set_force_net(vector<double>);
+        void eval_acceleration(void);
 };
+
+#endif
