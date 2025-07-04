@@ -18,6 +18,9 @@ vector<double> vec_sub (vector<double> v1, vector<double> v2){
                         };
     return res;
 }
+vector<double> vecnum_mult (double num, vector<double> v){
+    return {v[0]*num, v[1]*num, v[2]*num};
+}
 vector<double> vec_cross (vector<double> v1, vector<double> v2){
     vector<double> res = {  (v1[1]*v2[2])-(v2[1]*v1[2]), 
                             (v2[0]*v1[2])-(v1[0]*v2[2]),
@@ -37,9 +40,4 @@ vector<double> vec_unital (vector<double> v){
     double n = vec_norm(v);
     vector<double> res = {v[0]/n,v[1]/n,v[2]/n};
     return res;
-}
-bool check_impact (Object o1, Object o2){
-    if (vec_norm(vec_sub(o1.get_position(), o2.get_position())) <= o1.get_raduce() + o2.get_raduce())
-        return true;
-    return false;
 }

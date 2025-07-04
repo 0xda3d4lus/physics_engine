@@ -1,5 +1,7 @@
 #include "object.h"
+#include "laws.h"
 #include <vector>
+#include <math.h>
 
 Object::Object(double mass, double raduce, double electrical_charge, double magnetical_charge, vector<double> position, vector<double> velocity){
     this -> mass = mass;
@@ -62,4 +64,23 @@ void Object::eval_acceleration(){
                             (this -> get_force_net())[1]/(this -> get_mass()),
                             (this -> get_force_net())[2]/(this -> get_mass()),
                         };
+}
+bool Object::check_impact (Object b){
+    if (vec_norm(vec_sub(this -> get_position(), b.get_position())) <= (this -> get_raduce()) + b.get_raduce())
+        return true;
+    return false;
+}
+void Object::impact(Object &b){
+    double ma = this -> get_mass();
+    double mb = b.get_mass();
+    vector<double> va1 = this -> get_velocity();
+    vector<double> vb1 = b.get_velocity();
+    vector<double> va2 = vec_sum(vecnum_mult((ma-mb)/(ma+mb), va1), vecnum_mult((2*mb)/(ma+mb), vb1));
+    vector<double> vb2 = vec_sum(vecnum_mult((2*ma)/(ma+mb), va1), vecnum_mult((mb-ma)/(ma+mb), vb1));
+    this -> set_velocity(va2);
+    b.set_velocity(vb2);
+    while((vec_norm(vec_sub(this -> get_position(), b.get_position())))<((this -> get_raduce() + b.get_raduce()))){
+        this -> set_position(vec_sum(this -> get_position(), vecnum_mult(.001, vec_unital(va2))));
+        b.set_position(vec_sum( b.get_position(), vecnum_mult(.001, vec_unital(vb2))));
+    }
 }

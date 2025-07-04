@@ -30,6 +30,8 @@ class Object{
         vector<double> get_force_net(void);
         void set_force_net(vector<double>);
         void eval_acceleration(void);
+        bool check_impact(Object b);
+        void impact(Object &b);
 };
 
 #endif
