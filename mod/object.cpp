@@ -1,5 +1,6 @@
 #include "object.h"
 #include "laws.h"
+#include <cmath>
 #include <vector>
 #include <math.h>
 
@@ -7,7 +8,6 @@ Object::Object(double mass, double raduce, double electrical_charge, double magn
     this -> mass = mass;
     this -> raduce = raduce;
     this -> electrical_charge = electrical_charge;
-    this -> magnetical_charge = magnetical_charge;
     this -> position = position;
     this -> velocity = velocity;
     this -> force_net = {0,0,0};
@@ -34,13 +34,6 @@ void Object::set_electrical_charge(double nv){
     this -> electrical_charge = nv;
     return;
 }
-double Object::get_magnetical_charge(){
-    return (this -> magnetical_charge);
-}
-void Object::set_magnetical_charge(double nv){
-    this -> magnetical_charge = nv;
-    return;
-}
 vector<double> Object::get_position(){
     return (this -> position);
 }
@@ -59,6 +52,9 @@ vector<double> Object::get_force_net(){
 void Object::set_force_net(vector<double> nv){
     this -> force_net = nv;
 }
+void Object::add_force(vector<double> force){
+    this -> set_force_net(vec_sum(this -> get_force_net(), force));
+}
 void Object::eval_acceleration(){
     this -> acceleration = {(this -> get_force_net())[0]/(this -> get_mass()),
                             (this -> get_force_net())[1]/(this -> get_mass()),
@@ -66,7 +62,7 @@ void Object::eval_acceleration(){
                         };
 }
 bool Object::check_impact (Object b){
-    if (vec_norm(vec_sub(this -> get_position(), b.get_position())) <= (this -> get_raduce()) + b.get_raduce())
+    if (vec_norm(vec_sub(this -> get_position(), b.get_position())) < (this -> get_raduce()) + b.get_raduce())
         return true;
     return false;
 }
@@ -83,4 +79,9 @@ void Object::impact(Object &b){
         this -> set_position(vec_sum(this -> get_position(), vecnum_mult(.001, vec_unital(va2))));
         b.set_position(vec_sum( b.get_position(), vecnum_mult(.001, vec_unital(vb2))));
     }
+}
+void Object::move(double time_iteration){
+    this -> eval_acceleration();
+    this -> set_position(vec_sum(vec_sum(vecnum_mult(pow(time_iteration, 2)*0.5, this -> acceleration), vecnum_mult(time_iteration, this -> get_velocity())), this -> get_position()));
+    this -> set_velocity(vec_sum(vecnum_mult(time_iteration, this -> acceleration), this -> get_velocity()));
 }
