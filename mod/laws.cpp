@@ -42,31 +42,31 @@ vector<double> vec_unital (vector<double> v){
     vector<double> res = {v[0]/n,v[1]/n,v[2]/n};
     return res;
 }
-void gravitational_force_by_field(double gravital_acceleration, Object o){
-    vector<double> force = {0,0,-gravital_acceleration*o.get_mass()};
+void gravitational_force_by_field(double gravitational_acceleration, Object &o){
+    vector<double> force = {0,0,-gravitational_acceleration*o.get_mass()};
     o.set_force_net(vec_sum(o.get_force_net(), force));
 }
-void coulombic_force_by_field(vector<double> electrical_field, Object o){
+void coulombic_force_by_field(vector<double> electrical_field, Object &o){
     vector<double> force = {electrical_field[0]*o.get_electrical_charge(), electrical_field[1]*o.get_electrical_charge(), electrical_field[2]*o.get_electrical_charge()};
     o.add_force(force);
 }
-void magnetical_force_by_field(vector<double> magnetic_field, Object o){
+void magnetical_force_by_field(vector<double> magnetic_field, Object &o){
     vector<double> force = vecnum_mult(o.get_electrical_charge(), vec_cross(o.get_velocity(), magnetic_field));
     o.add_force(force);
 }
-void gravitational_force_by_object_b_to_a(Object a, Object b){
+void gravitational_force_by_object_b_to_a(Object &a, Object &b){
     vector<double> unital_direction = vec_unital(vec_sub(b.get_position(), a.get_position()));
     double size = G * a.get_mass() * b.get_mass() / pow(vec_norm(vec_sub(b.get_position(), a.get_position())), 2);
     a.add_force(vecnum_mult(size, unital_direction));
 }
-void coulombic_force_by_object_b_to_a(Object a, Object b){
+void coulombic_force_by_object_b_to_a(Object &a, Object &b){
     vector<double> unital_direction = vec_unital(vec_sub(a.get_position(), b.get_position()));
     double size = a.get_electrical_charge() * b.get_electrical_charge() / pow(vec_norm(vec_sub(b.get_position(), a.get_position())), 2) / 4 / PI / E0;
     a.add_force(vecnum_mult(size, unital_direction));
 }
-void magnetical_force_by_object_b_to_a(Object a, Object b){
+void magnetical_force_by_object_b_to_a(Object &a, Object &b){
     vector<double> dirvec = vec_cross(b.get_velocity(),(vec_unital(vec_sub(a.get_position(), b.get_position()))));
-    double factor = MU0 * b.get_electrical_charge() / 4 / PI / vec_norm(vec_sub(a.get_position(), b.get_position()));
+    double factor = MU0 * b.get_electrical_charge() / 4 / PI / pow(vec_norm(vec_sub(a.get_position(), b.get_position())), 2);
     vector<double> field = vecnum_mult(factor, dirvec);
     vector<double> force = vecnum_mult(a.get_electrical_charge(), vec_cross(a.get_velocity(), field));
     a.add_force(force);

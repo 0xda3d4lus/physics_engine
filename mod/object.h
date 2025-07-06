@@ -13,7 +13,7 @@ class Object{
         vector<double> force_net;
         vector<double> acceleration;
     public:
-        Object(double mass, double raduce, double electrical_charge, double magnetical_charge, vector<double> position, vector<double> velocity);
+        Object(double mass, double raduce, double electrical_charge, vector<double> position, vector<double> velocity);
         double get_mass(void);
         void set_mass(double);
         double get_raduce(void);

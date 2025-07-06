@@ -4,7 +4,7 @@
 #include <vector>
 #include <math.h>
 
-Object::Object(double mass, double raduce, double electrical_charge, double magnetical_charge, vector<double> position, vector<double> velocity){
+Object::Object(double mass, double raduce, double electrical_charge, vector<double> position, vector<double> velocity){
     this -> mass = mass;
     this -> raduce = raduce;
     this -> electrical_charge = electrical_charge;
