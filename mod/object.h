@@ -1,23 +1,27 @@
 #include <vector>
+#include <string>
 using namespace std;
 #ifndef OBJECT_H
 #define OBJECT_H
 
 class Object{
     private:
+        string name;
         long double mass;
-        long double raduce;
+        long double radius;
         long double electrical_charge;
         vector<long double> position;
         vector<long double> velocity;
         vector<long double> force_net;
         vector<long double> acceleration;
     public:
-        Object(long double mass, long double raduce, long double electrical_charge, vector<long double> position, vector<long double> velocity);
+        Object(string name, long double mass, long double radius, long double electrical_charge, vector<long double> position, vector<long double> velocity);
+        string get_name();
+        void set_name(string);
         long double get_mass(void);
         void set_mass(long double);
-        long double get_raduce(void);
-        void set_raduce(long double);
+        long double get_radius(void);
+        void set_radius(long double);
         long double get_electrical_charge(void);
         void set_electrical_charge(long double);
         vector<long double> get_position(void);

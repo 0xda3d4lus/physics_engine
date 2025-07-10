@@ -90,12 +90,22 @@ void eval_force_net_objects(vector<Object*> &object_vector){
         }
     }
 }
-double runner(vector<Object*> &object_vector, long double gravitational_acceleration, vector<long double> electrical_field, vector<long double> magnetic_field, double time, double time_iteration){
+void obj_copy(Object *from, Object *to){
+    to -> set_mass(from->get_mass());
+    to -> set_radius(from->get_radius());
+    to -> set_electrical_charge(from->get_electrical_charge());
+    to -> set_position(from->get_position());
+    to -> set_velocity(from->get_velocity());
+    to -> set_acceleration(from->get_acceleration());
+    to -> set_force_net(from->get_force_net());
+}
+double runner(vector<Object*> &object_vector, long double gravitational_acceleration, vector<long double> electrical_field, vector<long double> magnetic_field, double time, double time_iteration, vector<impact*> &impacts){
     double time_passed = 0;
     int objects_amount = object_vector.size();
     eval_force_net_field(object_vector, gravitational_acceleration, electrical_field, magnetic_field);
+    eval_force_net_objects(object_vector);
     for (int i = 0; i < int(time/time_iteration); i++){
-        eval_force_net_objects(object_vector);
+        time_passed += time_iteration;
         for (int j = 0; j < objects_amount; j++){
             Object *obj_ptr = object_vector.at(j);
             obj_ptr -> move(time_iteration);
@@ -105,10 +115,17 @@ double runner(vector<Object*> &object_vector, long double gravitational_accelera
                 if (object_vector.at(j) == object_vector.at(k)) continue;
                 if (object_vector.at(j) -> check_impact(*(object_vector.at(k)))){
                     object_vector.at(j) -> impact(*(object_vector.at(k)));
+                    impact *imp = new impact;
+                    (imp -> o1) = object_vector.at(j);
+                    (imp -> o2) = object_vector.at(k);
+                    (imp -> time) = time_passed;
+                    impacts.push_back(imp);
                 }
             }
         }
-        time_passed += time_iteration;
+        for (int j = 0; j < objects_amount; j++) object_vector.at(j) -> set_force_net({0, 0 ,0});
+        eval_force_net_field(object_vector, gravitational_acceleration,electrical_field, magnetic_field);
+        eval_force_net_objects(object_vector);
     }
     return time_passed;
 }

@@ -1,10 +1,10 @@
 CXX = g++
 CXXFLAGS = -Wall -Wextra -std=c++17
 
-SRC = main.cpp mod/laws.cpp mod/object.cpp
+SRC = cli.cpp mod/laws.cpp mod/object.cpp
 OBJ = $(SRC:.cpp=.o)
 
-TARGET = out
+TARGET = cli
 
 $(TARGET): $(OBJ)
 	$(CXX) $(OBJ) -o $(TARGET)

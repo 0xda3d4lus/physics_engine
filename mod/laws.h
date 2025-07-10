@@ -18,6 +18,13 @@ long double vec_dot (vector<long double> v1, vector<long double> v2);
 long double vec_norm (vector<long double> v);
 vector<long double> vec_unital (vector<long double> v);
 
+typedef struct{
+    Object *o1;
+    Object *o2;
+    double time;
+} impact;
+
+
 // physical principles
 void gravitational_force_by_field(long double gravitational_acceleration, Object &o);
 void coulombic_force_by_field(vector<long double> electrical_field, Object &o);
@@ -29,4 +36,5 @@ void magnetical_force_by_object_b_to_a(Object &a, Object &b);
 // program cycle
 void eval_force_net_field(vector<Object*> &object_vector, long double gravitational_acceleration, vector<long double> electrical_field, vector<long double> magnetic_field);
 void eval_force_net_objects(vector<Object*> &object_vector);
-double runner(vector<Object*> &object_vector, long double gravitational_acceleration, vector<long double> electrical_field, vector<long double> magnetic_field, double time, double time_iteration);
+void obj_copy(Object *a, Object *b);
+double runner(vector<Object*> &object_vector, long double gravitational_acceleration, vector<long double> electrical_field, vector<long double> magnetic_field, double time, double time_iteration, vector<impact*> &impacts);

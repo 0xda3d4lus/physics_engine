@@ -4,14 +4,22 @@
 #include <vector>
 #include <math.h>
 
-Object::Object(long double mass, long double raduce, long double electrical_charge, vector<long double> position, vector<long double> velocity){
+Object::Object(string name, long double mass, long double radius, long double electrical_charge, vector<long double> position, vector<long double> velocity){
+    this -> name = name;
     this -> mass = mass;
-    this -> raduce = raduce;
+    this -> radius = radius;
     this -> electrical_charge = electrical_charge;
     this -> position = position;
     this -> velocity = velocity;
     this -> force_net = {0,0,0};
     this -> acceleration = {0,0,0};
+}
+string Object::get_name(){
+    return (this -> name);
+}
+void Object::set_name(string nv){
+    this -> name = nv;
+    return;
 }
 long double Object::get_mass(){
     return (this -> mass);
@@ -20,11 +28,11 @@ void Object::set_mass(long double nv){
     this -> mass = nv;
     return;
 }
-long double Object::get_raduce(){
-    return (this -> raduce);
+long double Object::get_radius(){
+    return (this -> radius);
 }
-void Object::set_raduce(long double nv){
-    this -> raduce = nv;
+void Object::set_radius(long double nv){
+    this -> radius = nv;
     return;
 }
 long double Object::get_electrical_charge(){
@@ -68,7 +76,7 @@ void Object::eval_acceleration(){
                         };
 }
 bool Object::check_impact (Object b){
-    if (vec_norm(vec_sub(this -> get_position(), b.get_position())) < (this -> get_raduce()) + b.get_raduce())
+    if (vec_norm(vec_sub(this -> get_position(), b.get_position())) < (this -> get_radius()) + b.get_radius())
         return true;
     return false;
 }
@@ -81,7 +89,7 @@ void Object::impact(Object &b){
     vector<long double> vb2 = vec_sum(vecnum_mult((2*ma)/(ma+mb), va1), vecnum_mult((mb-ma)/(ma+mb), vb1));
     this -> set_velocity(va2);
     b.set_velocity(vb2);
-    while((vec_norm(vec_sub(this -> get_position(), b.get_position())))<((this -> get_raduce() + b.get_raduce()))){
+    while((vec_norm(vec_sub(this -> get_position(), b.get_position())))<((this -> get_radius() + b.get_radius()))){
         this -> set_position(vec_sum(this -> get_position(), vecnum_mult(.001, vec_unital(va2))));
         b.set_position(vec_sum( b.get_position(), vecnum_mult(.001, vec_unital(vb2))));
     }
