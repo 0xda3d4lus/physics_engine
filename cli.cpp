@@ -35,9 +35,9 @@ void print_objects(vector<Object*> objects){
 }
 
 int main(){
-    long double gravitational_acceleration = 0;
-    vector<long double> electrical_field = {0,0,0};
-    vector<long double> magnetic_field = {0,0,0};
+    double gravitational_acceleration = 0;
+    vector<double> electrical_field = {0,0,0};
+    vector<double> magnetic_field = {0,0,0};
     vector<Object*> objects ;
     vector<Object*> objects_cpy ;
 
@@ -88,7 +88,7 @@ int main(){
         cin >> name;
         cin.clear();
         cin.ignore(10000, '\n');
-        long double mass = 0;
+        double mass = 0;
         cout << ansiblue <<"Enter it's mass: (kg)" <<ansireset << endl;
         cout << "~> ";
         while (!(cin >> mass) || mass <= 0) {
@@ -96,7 +96,7 @@ int main(){
             cin.clear();
             cin.ignore(10000, '\n');
         }
-        long double radius = 0;
+        double radius = 0;
         cout << ansiblue <<"Enter it's radius: (m)" <<ansireset << endl;
         cout << "~> ";
         while (!(cin >> radius) || radius <= 0) {
@@ -104,7 +104,7 @@ int main(){
             cin.clear();
             cin.ignore(10000, '\n');
         }
-        long double electrical_charge = 0;
+        double electrical_charge = 0;
         cout << ansiblue <<"Enter it's electrical charge: (μC - micro coulomb)" <<ansireset << endl;
         cout << "~> ";
         while (!(cin >> electrical_charge)) {
@@ -112,7 +112,7 @@ int main(){
             cin.clear();
             cin.ignore(10000, '\n');
         }
-        vector<long double> initial_position = {0,0,0};
+        vector<double> initial_position = {0,0,0};
         cout << ansiblue << "Enter it's initial position (format: x then y then z): (m)" <<ansireset << endl;
         for (int i = 0; i<3; i++) {
             cout << "~> ";
@@ -122,7 +122,7 @@ int main(){
                 cin.ignore(10000, '\n');
             }
         }
-        vector<long double> initial_velocity = {0,0,0};
+        vector<double> initial_velocity = {0,0,0};
         cout << ansiblue << "Enter it's initial velocity (format: x then y then z): (m/s)" << ansireset << endl;
         for (int i = 0; i<3; i++) {
             cout << "~> ";
@@ -152,6 +152,8 @@ int main(){
         for (int i = 0; i < objects_amount; i++){
             objects[i] -> eval_acceleration();
         }
+        cout << ansigreen<< "FIELD:" << "    " << "E = (" << electrical_field[0]  << " , " << electrical_field[1] << " , " << electrical_field[2] << ")(V/m)    " << "B = ( " << magnetic_field[0]  << " , " << magnetic_field[1] << " , " << magnetic_field[2] << " )(T)" <<endl << endl;
+
         print_objects(objects);
         cout << ansigreen <<  "moment: t = " << passedt << ansireset << endl;
         if (impacts.size()){
@@ -165,7 +167,8 @@ int main(){
         cout << ansiblue << endl << "Enter t to view objects stats at the moment t" << ansireset << endl;
         cout << "~> ";
         while (!(cin >> t)) {
-            cout << ansired << "Invalid input. Please enter a numeric value:"<< ansireset << endl << "~> ";        cin.clear();
+            cout << ansired << "Invalid input. Please enter a numeric value:"<< ansireset << endl << "~> ";
+            cin.clear();
             cin.ignore(10000, '\n');
         }
     }

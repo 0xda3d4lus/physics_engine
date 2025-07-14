@@ -4,7 +4,7 @@
 #include <vector>
 #include <math.h>
 
-Object::Object(string name, long double mass, long double radius, long double electrical_charge, vector<long double> position, vector<long double> velocity){
+Object::Object(string name, double mass, double radius, double electrical_charge, vector<double> position, vector<double> velocity){
     this -> name = name;
     this -> mass = mass;
     this -> radius = radius;
@@ -21,52 +21,52 @@ void Object::set_name(string nv){
     this -> name = nv;
     return;
 }
-long double Object::get_mass(){
+double Object::get_mass(){
     return (this -> mass);
 }
-void Object::set_mass(long double nv){
+void Object::set_mass(double nv){
     this -> mass = nv;
     return;
 }
-long double Object::get_radius(){
+double Object::get_radius(){
     return (this -> radius);
 }
-void Object::set_radius(long double nv){
+void Object::set_radius(double nv){
     this -> radius = nv;
     return;
 }
-long double Object::get_electrical_charge(){
+double Object::get_electrical_charge(){
     return (this -> electrical_charge);
 }
-void Object::set_electrical_charge(long double nv){
+void Object::set_electrical_charge(double nv){
     this -> electrical_charge = nv;
     return;
 }
-vector<long double> Object::get_position(){
+vector<double> Object::get_position(){
     return (this -> position);
 }
-void Object::set_position(vector<long double> nv){
+void Object::set_position(vector<double> nv){
     this -> position = nv;
 }
-vector<long double> Object::get_velocity(){
+vector<double> Object::get_velocity(){
     return (this -> velocity);
 }
-void Object::set_velocity(vector<long double> nv){
+void Object::set_velocity(vector<double> nv){
     this -> velocity = nv;
 }
-vector<long double> Object::get_acceleration(){
+vector<double> Object::get_acceleration(){
     return (this -> acceleration);
 }
-void Object::set_acceleration(vector<long double> nv){
+void Object::set_acceleration(vector<double> nv){
     this -> acceleration = nv;
 }
-vector<long double> Object::get_force_net(){
+vector<double> Object::get_force_net(){
     return (this -> force_net);
 }
-void Object::set_force_net(vector<long double> nv){
+void Object::set_force_net(vector<double> nv){
     this -> force_net = nv;
 }
-void Object::add_force(vector<long double> force){
+void Object::add_force(vector<double> force){
     this -> set_force_net(vec_sum(this -> get_force_net(), force));
 }
 void Object::eval_acceleration(){
@@ -81,12 +81,12 @@ bool Object::check_impact (Object b){
     return false;
 }
 void Object::impact(Object &b){
-    long double ma = this -> get_mass();
-    long double mb = b.get_mass();
-    vector<long double> va1 = this -> get_velocity();
-    vector<long double> vb1 = b.get_velocity();
-    vector<long double> va2 = vec_sum(vecnum_mult((ma-mb)/(ma+mb), va1), vecnum_mult((2*mb)/(ma+mb), vb1));
-    vector<long double> vb2 = vec_sum(vecnum_mult((2*ma)/(ma+mb), va1), vecnum_mult((mb-ma)/(ma+mb), vb1));
+    double ma = this -> get_mass();
+    double mb = b.get_mass();
+    vector<double> va1 = this -> get_velocity();
+    vector<double> vb1 = b.get_velocity();
+    vector<double> va2 = vec_sum(vecnum_mult((ma-mb)/(ma+mb), va1), vecnum_mult((2*mb)/(ma+mb), vb1));
+    vector<double> vb2 = vec_sum(vecnum_mult((2*ma)/(ma+mb), va1), vecnum_mult((mb-ma)/(ma+mb), vb1));
     this -> set_velocity(va2);
     b.set_velocity(vb2);
     while((vec_norm(vec_sub(this -> get_position(), b.get_position())))<((this -> get_radius() + b.get_radius()))){

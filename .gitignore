@@ -5,3 +5,4 @@ cli
 gui
 proc.txt
 *.o
+*.dat
