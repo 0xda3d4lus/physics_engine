@@ -37,4 +37,4 @@ double runner(vector<Object*> &object_vector, double gravitational_acceleration,
 void obj_serialize(ofstream &out, Object o);
 void obj_deserialize(ifstream &in, Object *o);
 void serialize(ofstream &out, vector<Object*> &object_vector,int objects_amount, double gravitational_acceleration, vector<double> electrical_field, vector<double> magnetic_field);
-void deserialize(ifstream &in, vector<Object*> &object_vector, double &gravitational_acceleration, vector<double> &electrical_field, vector<double> &magnetic_field);
+void deserialize(ifstream &in, vector<Object*> &object_vector, int &objects_amount, double &gravitational_acceleration, vector<double> &electrical_field, vector<double> &magnetic_field);

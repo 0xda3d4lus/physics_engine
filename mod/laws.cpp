@@ -1,4 +1,3 @@
-#include <cmath>
 #include <vector>
 #include <math.h>
 #include <iostream>
@@ -227,7 +226,7 @@ void serialize(ofstream &out, vector<Object*> &object_vector, int objects_amount
     out.write(reinterpret_cast<const char*>(&objects_amount), sizeof(objects_amount));
     for (int i = 0; i < objects_amount; i++) obj_serialize(out, *(object_vector.at(i)));
 }
-void deserialize(ifstream &in, vector<Object*> &object_vector, double &gravitational_acceleration, vector<double> &electrical_field, vector<double> &magnetic_field){
+void deserialize(ifstream &in, vector<Object*> &object_vector, int &objects_amount, double &gravitational_acceleration, vector<double> &electrical_field, vector<double> &magnetic_field){
     double electrical_field_x;
     double electrical_field_y;
     double electrical_field_z;   
@@ -235,8 +234,6 @@ void deserialize(ifstream &in, vector<Object*> &object_vector, double &gravitati
     double magnetic_field_x;
     double magnetic_field_y;
     double magnetic_field_z;
-
-    int objects_amount;
 
     in.read(reinterpret_cast<char*>(&gravitational_acceleration), sizeof(gravitational_acceleration));
 
